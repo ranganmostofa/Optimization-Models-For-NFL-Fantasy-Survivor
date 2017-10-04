@@ -1,5 +1,5 @@
 # NFL Survivor Fantasy Football Probability Matrix Creation Code
-# Written By: Marco Bornstein
+#  Written By: Marco Bornstein
 # Date Finalized: 9/3/2017
 import csv
 from math import *
