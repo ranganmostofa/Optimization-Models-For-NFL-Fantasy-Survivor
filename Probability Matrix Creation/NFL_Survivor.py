@@ -1,5 +1,5 @@
 # NFL Survivor Fantasy Football Probability Matrix Creation Code
-#  Written By: Marco Bornstein
+# Written By: Marco Bornstein
 # Date Finalized: 9/3/2017
 import csv
 from math import *
@@ -58,11 +58,26 @@ def normdist(x, mu, sigma, f):
     return y
 
 
+# For Marco (if Marco, Leave Uncommented)
+marco_filename_elo = r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Elo Rankings All Weeks.csv'
+marco_filename_home_away = r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Home Away.csv'
+marco_filename_schedule = r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Schedule.csv'
+marco_filename_spread = r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Spreads Week1.csv'
 # Import in Elo, Vegas Spreads, Team Schedule, and Home/Away CSV file data
-Elo_Rankings = read_csv(r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Elo Rankings All Weeks.csv')
-Home_Away = read_csv(r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Home Away.csv')
-Schedule = read_csv(r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Schedule.csv')
-Spreads = read_csv(r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Spreads Week1.csv')
+Elo_Rankings = read_csv(marco_filename_elo)
+Home_Away = read_csv(marco_filename_home_away)
+Schedule = read_csv(marco_filename_schedule)
+Spreads = read_csv(marco_filename_spread)
+
+# For Rangan (if Rangan, Leave Uncommented)
+# rangan_filename_elo = 0
+# rangan_filename_home_away = 0
+# rangan_filename_schedule = 0
+# rangan_filename_spread = 0
+# Elo_Rankings = read_csv(rangan_filename_elo)
+# Home_Away = read_csv(rangan_filename_home_away)
+# Schedule = read_csv(rangan_filename_schedule)
+# Spreads = read_csv(rangan_filename_spread)
 
 # Initialize NFL Team List
 nfl_teams = []
