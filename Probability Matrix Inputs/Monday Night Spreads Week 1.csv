@@ -1,33 +1,33 @@
 Teams,Favorite/Underdog,ATLANTIS,CAESARS/HARRAH'S,CG TECHNOLOGY,COASTS,GOLDEN NUGGET,JERRY'S NUGGET,MIRAGE-MGM,PEPPERMILL,SOUTHPOINT,STATIONS,STRATOSPHERE,TREASURE ISLAND,VI CONSENSUS,WESTGATE SUPERBOOK,WILLIAM HILL,WYNN
-Arizona Cardinals,(Favorite),,,,,,,,,,,,,,,,
-Atlanta Falcons,(Favorite),,,,,,,,,,,,,,,,
-Baltimore Ravens,(Favorite),,,,,,,,,,,,,,,,
-Buffalo Bills,(Underdog),,,,,,,,,,,,,,,,
-Carolina Panthers,(Favorite),,,,,,,,,,,,,,,,
-Chicago Bears,(Underdog),,,,,,,,,,,,,,,,
-Cincinnati Bengals,(Favorite),,,,,,,,,,,,,,,,
-Cleveland Browns,(Underdog),,,,,,,,,,,,,,,,
-Dallas Cowboys,(Underdog),,,,,,,,,,,,,,,,
-Denver Broncos,(Underdog),,,,,,,,,,,,,,,,
-Detroit Lions,(Underdog),,,,,,,,,,,,,,,,
-Green Bay Packers,(Favorite),,,,,,,,,,,,,,,,
-Houston Texans,(Favorite),,,,,,,,,,,,,,,,
-Indianapolis Colts,(Favorite),,,,,,,,,,,,,,,,
-Jacksonville Jaguars,(Underdog),,,,,,,,,,,,,,,,
-Kansas City Chiefs,(Favorite),,,,,,,,,,,,,,,,
+Arizona Cardinals,(Favorite),-7.5,-7,-7,-7,-7.5,-7.5,-7,-7,-7.5,-7,-7.5,-6.5,-7.5,-7.5,-7,-7
+Atlanta Falcons,(Favorite),-2.5,-2.5,-2.5,-2.5,-2.5,-2,-2.5,-2.5,-2.5,-3,-2.5,-2.5,-2.5,-2.5,-2.5,-2.5
+Baltimore Ravens,(Favorite),-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3
+Buffalo Bills,(Underdog),3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
+Carolina Panthers,(Favorite),-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3
+Chicago Bears,(Underdog),5,5,5,4.5,5,4.5,4.5,5,5,5,5,5,5,5,5,5
+Cincinnati Bengals,(Favorite),-2.5,-2,-2,-1.5,-2,-1.5,-2,-2,-2,-2,-1.5,-1.5,-1.5,-1.5,-1.5,-1.5
+Cleveland Browns,(Underdog),3.5,3,3.5,3.5,3.5,3.5,3.5,3.5,3.5,3.5,3.5,3.5,3.5,3.5,3.5,3.5
+Dallas Cowboys,(Underdog),0,1,1,1,1,1,0,0,1,1,1,1.5,1,1,1,1
+Denver Broncos,(Underdog),3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
+Detroit Lions,(Underdog),3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
+Green Bay Packers,(Favorite),-5.5,-5.5,-5,-5.5,-5.5,-5,-4.5,-5.5,-5.5,-5.5,-5,-4.5,-5.5,-4.5,-5.5,-5
+Houston Texans,(Favorite),-5,-5,-5,-4.5,-5,-4.5,-4.5,-5,-5,-5,-5,-5,-5,-5,-5,-5
+Indianapolis Colts,(Favorite),-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3,-3
+Jacksonville Jaguars,(Underdog),5.5,5.5,5,5.5,5.5,5,4.5,5.5,5.5,5.5,5,4.5,5.5,4.5,5.5,5
+Kansas City Chiefs,(Favorite),-6.5,-6.5,-6.5,-7,-6.5,-6,-7,-6.5,-6.5,-6.5,-6.5,-6,-6.5,-6.5,-6.5,-6.5
 Los Angeles Rams,(Favorite),-3,-3,-3,-2.5,-3,-2.5,-3,-2.5,-2.5,-2.5,-3,-2.5,-3,-2.5,-3,-3
-Miami Dolphins,(Underdog),,,,,,,,,,,,,,,,
-Minnesota Vikings,(Favorite),,,,,,,,,,,,,,,,
-New England Patriots,(Underdog),,,,,,,,,,,,,,,,
-New Orleans Saints,(Favorite),,,,,,,,,,,,,,,,
-New York Giants,(Favorite),,,,,,,,,,,,,,,,
-New York Jets,(Underdog),,,,,,,,,,,,,,,,
-Oakland Raiders,(Underdog),,,,,,,,,,,,,,,,
-Philadelphia Eagles,(Favorite),,,,,,,,,,,,,,,,
+Miami Dolphins,(Underdog),10.5,10.5,10.5,10,10.5,10.5,10.5,10.5,10.5,10.5,10.5,10,10.5,10.5,10.5,10.5
+Minnesota Vikings,(Favorite),-3,-3,-2.5,-2.5,-2.5,-2.5,-2.5,-2.5,-2.5,-2.5,-2.5,-3,-2.5,-2.5,-2.5,-2.5
+New England Patriots,(Underdog),7.5,7,7,7,7.5,7.5,7,7,7.5,7,7.5,6.5,7.5,7.5,7,7
+New Orleans Saints,(Favorite),1,-2,-2,-2.5,-2,-2,-2.5,-1,-2,-2,-2.5,-2,-2.5,-2.5,-2,-2.5
+New York Giants,(Favorite),0,-1,-1,-1,-1,-1,0,0,-1,-1,-1,-1.5,-1,-1,-1,-1
+New York Jets,(Underdog),2.5,2,2,1.5,2,1.5,2,2,2,2,1.5,1.5,1.5,1.5,1.5,1.5
+Oakland Raiders,(Underdog),-1,2,2,2.5,2,2,2.5,1,2,2,2.5,2,2.5,2.5,2,2.5
+Philadelphia Eagles,(Favorite),-3.5,-3,-3.5,-3.5,-3.5,-3.5,-3.5,-3.5,-3.5,-3.5,-3.5,-3.5,-3.5,-3.5,-3.5,-3.5
 Pittsburgh Steelers,(Favorite),-2,-2,-2,-1.5,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-1.5
-San Diego Chargers,(Underdog),,,,,,,,,,,,,,,,
+San Diego Chargers,(Underdog),6.5,6.5,6.5,7,6.5,6,7,6.5,6.5,6.5,6.5,6,6.5,6.5,6.5,6.5
 San Francisco 49ers,(Underdog),3,3,3,2.5,3,2.5,3,2.5,2.5,2.5,3,2.5,3,2.5,3,3
-Seattle Seahawks,(Favorite),,,,,,,,,,,,,,,,
-Tampa Bay Buccaneers,(Underdog),,,,,,,,,,,,,,,,
-Tennessee Titans,(Underdog),,,,,,,,,,,,,,,,
+Seattle Seahawks,(Favorite),-10.5,-10.5,-10.5,-10,-10.5,-10.5,-10.5,-10.5,-10.5,-10.5,-10.5,-10,-10.5,-10.5,-10.5,-10.5
+Tampa Bay Buccaneers,(Underdog),2.5,2.5,2.5,2.5,2.5,2,2.5,2.5,2.5,3,2.5,2.5,2.5,2.5,2.5,2.5
+Tennessee Titans,(Underdog),3,3,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,3,2.5,2.5,2.5,2.5
 Washington Redskins,(Underdog),2,2,2,1.5,2,2,2,2,2,2,2,2,2,2,2,1.5
