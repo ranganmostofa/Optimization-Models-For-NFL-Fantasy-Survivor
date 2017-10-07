@@ -93,7 +93,7 @@ from pprint import pprint
 
 t_0 = time()
 
-NUM_WEEKS = 5
+NUM_WEEKS = 6
 
 NUM_TEAMS = 32
 
@@ -112,7 +112,7 @@ G = GraphConstructor.build_graph(dict(), P, tuple([START_NODE]), START_WEEK, nod
 t_1 = time()
 
 # pprint(G)
-print(len(G.keys()))
+# print(len(G.keys()))
 
 print(str(t_1 - t_0), "s")
 
