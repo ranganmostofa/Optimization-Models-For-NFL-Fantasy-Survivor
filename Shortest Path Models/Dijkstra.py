@@ -84,11 +84,10 @@ class Dijkstra:
         is non-empty
         """
         if len(Q):  # if the input queue is non-empty
-            current_node = Q.index(0)  # initialize the current node to be the first node in the queue
+            current_node = Q[0]  # initialize the current node to be the first node in the queue
             current_dist = float("inf")  # initialize the current distance to negative infinity
             for node in Q:  # for every node in the queue
                 if dist[node] < current_dist:  # if the source node is nearer to the iterated node than the current node
                     current_node = node  # replace the current node with the iterated node
             return current_node  # return the final current node
-
 

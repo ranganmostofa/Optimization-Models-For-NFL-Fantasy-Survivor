@@ -3,11 +3,30 @@ class GraphConstructor:
     Class for methods implementing construction of probability trees
     """
     @staticmethod
-    def build_graph(G, P, start_node, start_week, neighbor_set, num_layers):
+    def build_graph(G, P, start_node, terminal_node, terminal_weight, start_week, neighbor_set, num_layers):
+        """
+        Given the starting graph, current probability matrix for the season, the start node, the
+        terminal node, the weight of edges leading to the terminal node, the start week, the set
+        of neighbors of the input start node and the number of layers, builds and returns the
+        probability tree where every final team node is connected to the input terminal node with
+        the input terminal edge weight
+        """
+        # use the overloaded method to construct the traditional probability tree
+        G_prime = GraphConstructor.__build_graph(G, P, start_node, start_week, neighbor_set, num_layers)
+        # determine final nodes
+        final_node_set = GraphConstructor.determine_layer_nodes(G_prime, num_layers)
+        for final_node in final_node_set:  # for every final node
+            # connect the final node to the terminal node using the terminal node_weight
+            GraphConstructor.add_edge(G_prime, final_node, terminal_node, terminal_weight)
+            G_prime[terminal_node] = dict()  # the terminal node has no outgoing edges
+        return G_prime  # return the modified probability tree
+
+    @staticmethod
+    def __build_graph(G, P, start_node, start_week, neighbor_set, num_layers):
         """
         Given the starting graph, current probability matrix for the season, the start node,
         the start week, the set of neighbors of the input start node and the number of layers,
-        builds and returns the probability tree associated with the probsbility tree of the
+        builds and returns the probability tree associated with the probability matrix of the
         shortest path problem
         """
         if not num_layers:  # if the number of layers is 0
@@ -24,13 +43,28 @@ class GraphConstructor:
                 # add the edge connecting the start node to the neighbor node to make G'
                 G_prime = GraphConstructor.add_edge(G, start_node, child_node,
                                                     GraphConstructor.extract_probability(P, child_node, start_week))
-
                 # use recursion to mutate the input graph G by building and adding the
                 # relevant subgraph at each recursive level
-                G = GraphConstructor.merge_graph(G_prime, GraphConstructor.build_graph(
+                G = GraphConstructor.merge_graph(G_prime, GraphConstructor.__build_graph(
                     dict(), P, child_node, start_week + 1, child_node_set, num_layers - 1))
-
             return G  # return the final graph or probability tree
+
+    @staticmethod
+    def determine_layer_nodes(graph, layer):
+        """
+        Given a probability tree, returns the set of nodes associated with the input layer
+        or week
+        """
+        node_set = set()  # initialize an empty set of nodes
+        for source_node in graph.keys():  # for every source node
+            if len(source_node) == 1 + layer:  # if the source node is in the desired layer
+                node_set.add(source_node)  # add the source node to the set
+            # for every terminal node connected to the current source node
+            for terminal_node in graph[source_node].keys():
+                # if the terminal node is in the desired layer
+                if len(terminal_node) == 1 + layer:
+                    node_set.add(terminal_node)  # add the terminal node to the node set
+        return node_set  # return the node set
 
     @staticmethod
     def produce_child_node(parent_node, next_node):
@@ -65,7 +99,7 @@ class GraphConstructor:
         Given the probability matrix, child node and the current week number, returns the
         relevant probability value from the matrix
         """
-        return P[child_node[-1] - 1][current_week - 1]  # return the relevant probability
+        return float(P[current_week - 1][child_node[-1] - 1])  # return the relevant probability
 
     @staticmethod
     def add_edge(graph, source_node, terminal_node, edge_weight):
@@ -85,35 +119,4 @@ class GraphConstructor:
             # if not set it to an empty inner mapping
             graph[terminal_node] = dict()
         return graph  # return the mutated input graph
-
-
-from time import time
-from pprint import pprint
-
-
-t_0 = time()
-
-NUM_WEEKS = 6
-
-NUM_TEAMS = 32
-
-START_NODE = 0
-
-START_WEEK = 1
-
-TERMINAL_NODE = "T"
-
-node_set = list(range(1, 1 + NUM_TEAMS))
-
-P = [[0.5] * NUM_WEEKS] * NUM_TEAMS
-
-G = GraphConstructor.build_graph(dict(), P, tuple([START_NODE]), START_WEEK, node_set, NUM_WEEKS)
-
-t_1 = time()
-
-# pprint(G)
-# print(len(G.keys()))
-
-print(str(t_1 - t_0), "s")
-
 
