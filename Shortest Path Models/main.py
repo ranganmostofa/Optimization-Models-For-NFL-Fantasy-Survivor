@@ -19,9 +19,9 @@ def read_csv(csv_filename):
     return csv_matrix
 
 
-NUM_WEEKS = 3
+NUM_WEEKS = 5
 
-NUM_TEAMS = 32
+NUM_TEAMS = 12
 
 START_NODE = "S"
 
@@ -35,7 +35,7 @@ selected_nodes = set(range(1, 1))
 
 node_set = set(range(1, 1 + NUM_TEAMS)).difference(selected_nodes)
 
-P = read_csv("../Probability Matrix Creation/Shortest Path (Flipped) Probability Matrix 2016 Weeks 1-4.csv")
+P = read_csv("../Probability Matrix Creation/Shortest Path (Flipped) Probability Matrix 2016 Weeks 1-6.csv")
 # P = [[0.5] * NUM_TEAMS] * NUM_WEEKS
 # P = [[0.10, 0.20, 0.30, 0.40],
 #      [0.77, 0.13, 0.88, 0.06],
