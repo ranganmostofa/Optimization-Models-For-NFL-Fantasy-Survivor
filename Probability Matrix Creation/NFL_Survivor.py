@@ -69,7 +69,7 @@ marco_filename_spreads_mon = r'C:\Users\marco_000\Documents\Survivor Football Re
 Elo_Rankings = read_csv(marco_filename_elo)
 Home_Away = read_csv(marco_filename_home_away)
 Schedule = read_csv(marco_filename_schedule)
-Spreads = read_csv(marco_filename_spreads_mon)
+Spreads = read_csv(marco_filename_spreads_thur)
 
 # For Rangan (if Rangan, Leave Uncommented)
 # rangan_filename_elo = 0
@@ -198,14 +198,16 @@ for i in range(1, len(total_schedule)):
         win_probability = 1 / (1 + 10 ** ((opponent_elo_score - team_elo_score) / 400))
         current_week_probabilities.append(win_probability)
     Probabilities.append(current_week_probabilities)
-
 # Temporarily Rounding Decimals
 Rounded_Probabilities = []
-for i in range(0, 3):
+for i in range(0, 4):
     wk_rounded = []
     wk_p = Probabilities[i]
     for element in range(0, len(wk_p)):
-        wk_rounded.append(round(wk_p[element], 3))
+        if isinstance(wk_p[element], str):
+            wk_rounded.append(0)
+        else:
+            wk_rounded.append(round(wk_p[element], 6))
     Rounded_Probabilities.append(wk_rounded)
 
 print('NFL Teams (Probabilities Listed in Same Order)')
@@ -216,3 +218,7 @@ print('Week 2')
 print(Rounded_Probabilities[1])
 print('Week 3')
 print(Rounded_Probabilities[2])
+print('Week 4')
+print(Rounded_Probabilities[3])
+
+write_csv('Probability Matrix 2016 Weeks 1-4.csv', Rounded_Probabilities)
