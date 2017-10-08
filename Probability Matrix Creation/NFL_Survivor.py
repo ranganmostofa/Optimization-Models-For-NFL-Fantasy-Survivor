@@ -209,16 +209,28 @@ for i in range(0, 4):
         else:
             wk_rounded.append(round(wk_p[element], 6))
     Rounded_Probabilities.append(wk_rounded)
+# Flipped Probabilities for Shortest Path
+Flipped_Probabilities = []
+for j in range(0,4):
+    wk_flipped = []
+    wk_f = Rounded_Probabilities[j]
+    for element in range(0, len(wk_f)):
+        if isinstance(wk_f[element], str):
+            wk_flipped.append(0)
+        else:
+            wk_flipped.append(1 - round(wk_f[element], 6))
+    Flipped_Probabilities.append(wk_flipped)
 
-#print('NFL Teams (Probabilities Listed in Same Order)')
-#print(nfl_teams)
-#print('Week 1')
-#print(Rounded_Probabilities[0])
-#print('Week 2')
-#print(Rounded_Probabilities[1])
-#print('Week 3')
-#print(Rounded_Probabilities[2])
-#print('Week 4')
-#print(Rounded_Probabilities[3])
+# print('NFL Teams (Probabilities Listed in Same Order)')
+# print(nfl_teams)
+# print('Week 1')
+# print(Rounded_Probabilities[0])
+# print('Week 2')
+# print(Rounded_Probabilities[1])
+# print('Week 3')
+# print(Rounded_Probabilities[2])
+# print('Week 4')
+# print(Rounded_Probabilities[3])
 
 write_csv('Probability Matrix 2016 Weeks 1-4.csv', Rounded_Probabilities)
+write_csv('Shortest Path (Flipped) Probability Matrix 2016 Weeks 1-4.csv', Flipped_Probabilities)
