@@ -69,7 +69,7 @@ marco_filename_spreads_mon = r'C:\Users\marco_000\Documents\Survivor Football Re
 Elo_Rankings = read_csv(marco_filename_elo)
 Home_Away = read_csv(marco_filename_home_away)
 Schedule = read_csv(marco_filename_schedule)
-Spreads = read_csv(marco_filename_spreads_sun)
+Spreads = read_csv(marco_filename_spreads_thur)
 
 # For Rangan (if Rangan, Leave Uncommented)
 # rangan_filename_elo = 0
