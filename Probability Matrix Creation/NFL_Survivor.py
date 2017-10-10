@@ -69,7 +69,7 @@ marco_filename_spreads_mon = r'C:\Users\marco_000\Documents\Survivor Football Re
 Elo_Rankings = read_csv(marco_filename_elo)
 Home_Away = read_csv(marco_filename_home_away)
 Schedule = read_csv(marco_filename_schedule)
-Spreads = read_csv(marco_filename_spreads_thur)
+Spreads = read_csv(marco_filename_spreads_sun)
 
 # For Rangan (if Rangan, Leave Uncommented)
 # rangan_filename_elo = 0
@@ -209,28 +209,6 @@ for i in range(0, 4):
             wk_rounded.append(round(wk_p[element], 6))
     Rounded_Probabilities.append(wk_rounded)
 # Flipped Probabilities for Shortest Path
-Flipped_Probabilities = []
-for j in range(0, 4):
-    wk_flipped = []
-    wk_f = Rounded_Probabilities[j]
-    for element in range(0, len(wk_f)):
-        if isinstance(wk_f[element], str):
-            wk_flipped.append(1)
-        else:
-            wk_flipped.append(1 - round(wk_f[element], 6))
-    Flipped_Probabilities.append(wk_flipped)
-
-Flipped_Probabilities2 = []
-for k in range(0, 6):
-    wk_flipped2 = []
-    wk_f2 = Probabilities[k]
-    for element in range(0, len(wk_f2)):
-        if isinstance(wk_f2[element], str):
-            wk_flipped2.append(1)
-        else:
-            wk_flipped2.append(1 - round(wk_f2[element], 6))
-    Flipped_Probabilities2.append(wk_flipped2)
-
 Flipped_Probabilities3 = []
 for h in range(0, 17):
     wk_flipped3 = []
@@ -253,7 +231,4 @@ for h in range(0, 17):
 # print('Week 4')
 # print(Rounded_Probabilities[3])
 
-write_csv('Probability Matrix 2016 Weeks 1-4.csv', Rounded_Probabilities)
-write_csv('Shortest Path (Flipped) Probability Matrix 2016 Weeks 1-4.csv', Flipped_Probabilities)
-write_csv('Shortest Path (Flipped) Probability Matrix 2016 Weeks 1-6.csv', Flipped_Probabilities2)
 write_csv('Shortest Path (Flipped) Probability Matrix 2016 Weeks 1-17.csv', Flipped_Probabilities3)
