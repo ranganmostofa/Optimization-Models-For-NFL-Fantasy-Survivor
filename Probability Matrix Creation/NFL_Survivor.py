@@ -98,7 +98,6 @@ for row_idx in range(len(Elo_Rankings)):
     current_week_elo = elo_row[current_week+1]
     weekly_elo_rankings.append(current_week_elo)
 weekly_elo_rankings.pop(0)
-
 # Find the Spreads for Each NFL Match-up and the Corresponding Win % From Norm Distribution
 # Compute the Weighted Average for Each Spread
 spread_win_probabilities = []
@@ -135,7 +134,7 @@ total_schedule = []
 total_home_field = []
 
 # Determine the Schedule for Each NFL Team, as Well as Home/Away for Each Matchup
-for week_idx in range(current_week+1, 17):
+for week_idx in range(current_week+1, 19):
     weekly_schedule = []
     weekly_home_field = []
     for row_idx in range(len(Elo_Rankings)):
@@ -232,6 +231,17 @@ for k in range(0, 6):
             wk_flipped2.append(1 - round(wk_f2[element], 6))
     Flipped_Probabilities2.append(wk_flipped2)
 
+Flipped_Probabilities3 = []
+for h in range(0, 17):
+    wk_flipped3 = []
+    wk_f3 = Probabilities[h]
+    for element in range(0, len(wk_f3)):
+        if isinstance(wk_f3[element], str):
+            wk_flipped3.append(1)
+        else:
+            wk_flipped3.append(1 - round(wk_f3[element], 6))
+    Flipped_Probabilities3.append(wk_flipped3)
+
 # print('NFL Teams (Probabilities Listed in Same Order)')
 # print(nfl_teams)
 # print('Week 1')
@@ -246,3 +256,4 @@ for k in range(0, 6):
 write_csv('Probability Matrix 2016 Weeks 1-4.csv', Rounded_Probabilities)
 write_csv('Shortest Path (Flipped) Probability Matrix 2016 Weeks 1-4.csv', Flipped_Probabilities)
 write_csv('Shortest Path (Flipped) Probability Matrix 2016 Weeks 1-6.csv', Flipped_Probabilities2)
+write_csv('Shortest Path (Flipped) Probability Matrix 2016 Weeks 1-17.csv', Flipped_Probabilities3)
