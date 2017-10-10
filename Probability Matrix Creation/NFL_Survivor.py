@@ -28,7 +28,7 @@ def write_csv(csv_filename, data_matrix):
     :return:
     """
     with open(csv_filename, "w") as csv_file:
-        csv_writer = csv.writer(csv_file, delimiter=",")
+        csv_writer = csv.writer(csv_file, delimiter=",", lineterminator="\n")
         for row in data_matrix:
             csv_writer.writerow(list(row))
 
