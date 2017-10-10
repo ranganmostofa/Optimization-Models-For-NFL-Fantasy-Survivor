@@ -216,7 +216,7 @@ for j in range(0, 4):
     wk_f = Rounded_Probabilities[j]
     for element in range(0, len(wk_f)):
         if isinstance(wk_f[element], str):
-            wk_flipped.append(0)
+            wk_flipped.append(1)
         else:
             wk_flipped.append(1 - round(wk_f[element], 6))
     Flipped_Probabilities.append(wk_flipped)
@@ -227,7 +227,7 @@ for k in range(0, 6):
     wk_f2 = Probabilities[k]
     for element in range(0, len(wk_f2)):
         if isinstance(wk_f2[element], str):
-            wk_flipped2.append(0)
+            wk_flipped2.append(1)
         else:
             wk_flipped2.append(1 - round(wk_f2[element], 6))
     Flipped_Probabilities2.append(wk_flipped2)

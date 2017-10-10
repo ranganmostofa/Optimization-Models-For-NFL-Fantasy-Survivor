@@ -21,7 +21,7 @@ def read_csv(csv_filename):
 
 NUM_WEEKS = 5
 
-NUM_TEAMS = 12
+NUM_TEAMS = 32
 
 START_NODE = "S"
 
