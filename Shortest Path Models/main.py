@@ -4,6 +4,7 @@ from pprint import pprint
 from ProbabilityMatrixHelpers import ProbabilityMatrixHelpers
 from Dijkstra import Dijkstra
 from GraphConstructor import GraphConstructor
+from heap_dijkstra import dijkstra
 
 
 def read_csv(csv_filename):
@@ -20,7 +21,7 @@ def read_csv(csv_filename):
     return csv_matrix
 
 
-NUM_WEEKS = 3
+NUM_WEEKS = 4
 
 NUM_TEAMS = 32
 
@@ -38,7 +39,12 @@ selected_nodes = {}
 
 node_set = set(range(1, 1 + NUM_TEAMS)).difference(selected_nodes)
 
-P = read_csv(r'C:\Users\marco_000\Optimization-Models-For-NFL-Fantasy-Survivor\Probability Matrix Creation\Week 1 Elo Log Probabilities 2016.csv')
+P = read_csv("../Probability Matrix Creation/Shortest Path (Flipped) Probability Matrix 2016 Weeks 1-17.csv")
+# P[0][15] = 0
+# P[1][4] = 0
+# P[2][28] = 0
+# P[3][6] = 0
+
 # P = [[0.5] * NUM_TEAMS] * NUM_WEEKS
 # P = [[0.10, 0.20, 0.30, 0.40],
 #      [0.77, 0.13, 0.88, 0.06],
@@ -50,11 +56,11 @@ P = read_csv(r'C:\Users\marco_000\Optimization-Models-For-NFL-Fantasy-Survivor\P
 print("Building Graph...\n")
 build_t0 = time()
 
-G = GraphConstructor.build_graph(dict(), ProbabilityMatrixHelpers.build_cost_matrix(ProbabilityMatrixHelpers.flip_probability_matrix(P)),
-                                 tuple([START_NODE]), TERMINAL_NODE, TERMINAL_WEIGHT, START_WEEK, node_set, NUM_WEEKS)
-
-# G = GraphConstructor.build_graph(dict(), P,
+# G = GraphConstructor.build_graph(dict(), ProbabilityMatrixHelpers.build_cost_matrix(ProbabilityMatrixHelpers.flip_probability_matrix(P)),
 #                                  tuple([START_NODE]), TERMINAL_NODE, TERMINAL_WEIGHT, START_WEEK, node_set, NUM_WEEKS)
+
+G = GraphConstructor.build_graph(dict(), P,
+                                 tuple([START_NODE]), TERMINAL_NODE, TERMINAL_WEIGHT, START_WEEK, node_set, NUM_WEEKS)
 
 build_t1 = time()
 
@@ -64,7 +70,8 @@ print("Time taken to build graph:", str(build_t1 - build_t0), "s\n")
 print("Computing Optimal Path...\n")
 dijkstra_t0 = time()
 
-dist, prev = Dijkstra.one_to_one(G, tuple([START_NODE]), TERMINAL_NODE)
+# dist, prev = Dijkstra.one_to_one(G, tuple([START_NODE]), TERMINAL_NODE)
+dist, prev = dijkstra(G, tuple([START_NODE]))
 
 dijkstra_t1 = time()
 
