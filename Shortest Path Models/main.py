@@ -38,7 +38,7 @@ selected_nodes = {}
 
 node_set = set(range(1, 1 + NUM_TEAMS)).difference(selected_nodes)
 
-P = read_csv(r'C:\Users\marco_000\Optimization-Models-For-NFL-Fantasy-Survivor\Probability Matrix Creation\Pure Elo Version\Week 1 Elo Probabilities 2016.csv')
+P = read_csv(r'C:\Users\marco_000\Optimization-Models-For-NFL-Fantasy-Survivor\Probability Matrix Creation\Week 1 Elo Log Probabilities 2016.csv')
 # P = [[0.5] * NUM_TEAMS] * NUM_WEEKS
 # P = [[0.10, 0.20, 0.30, 0.40],
 #      [0.77, 0.13, 0.88, 0.06],
