@@ -44,12 +44,17 @@ for week in range(17):
     current_week = week + 1
     # Create Probabilities List
     Week_Probabilities = []
-    # Create List for Elo
-    total_elo = []
     # Create List for Schedule
     total_schedule = []
     # Create List for Home Field Advantage
     total_home_field = []
+
+    cur_week_elo = []
+
+    for k in range(len(Elo_Rankings)):
+        elo_row = Elo_Rankings[k]
+        cur_week_elo.append(elo_row[current_week+1])
+    cur_week_elo.pop(0)
 
     # Determine the Schedule for Each NFL Team, as Well as Home/Away for Each Matchup
     for week_idx in range(current_week+1, 19):
@@ -57,19 +62,14 @@ for week in range(17):
         weekly_schedule = []
         weekly_home_field = []
         for row_idx in range(len(Elo_Rankings)):
-            elo_row = Elo_Rankings[row_idx]
             schedule_row = Schedule[row_idx]
             home_field_row = Home_Away[row_idx]
-            current_week_elo = elo_row[week_idx]
             current_week_schedule = schedule_row[week_idx]
             current_week_home_field = home_field_row[week_idx]
-            weekly_elo.append(current_week_elo)
             weekly_schedule.append(current_week_schedule)
             weekly_home_field.append(current_week_home_field)
-        weekly_elo.pop(0)
         weekly_schedule.pop(0)
         weekly_home_field.pop(0)
-        total_elo.append(weekly_elo)
         total_schedule.append(weekly_schedule)
         total_home_field.append(weekly_home_field)
 
@@ -78,7 +78,6 @@ for week in range(17):
     for i in range(len(total_schedule)):
         cur_week = total_schedule[i]
         cur_home_field = total_home_field[i]
-        cur_week_elo = total_elo[i]
         current_week_probabilities = []
         for j in range(len(total_schedule[i])):
             if cur_week[j] == "":
@@ -93,10 +92,16 @@ for week in range(17):
             win_probability = 1 / (1 + 10 ** ((opponent_elo_score - team_elo_score) / 400))
             current_week_probabilities.append(log(win_probability ** -1))
         Week_Probabilities.append(current_week_probabilities)
+
+    if len(Week_Probabilities) < 17:
+        diff = 17 - len(Week_Probabilities)
+        for n in range(diff):
+            Week_Probabilities.append([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])
+
     Probabilities.append(Week_Probabilities)
 
 # Print Out CSVs
 title = 'Elo Log Probabilities 2016.csv'
 for n in range(len(Probabilities)):
-    week_num = 'Week ' + str(n+1) + ' '
-    write_csv((week_num + title), Probabilities[n])
+        week_num = 'Week ' + str(n+1) + ' '
+        write_csv((week_num + title), Probabilities[n])
