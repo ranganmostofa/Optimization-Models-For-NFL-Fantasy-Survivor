@@ -1,4 +1,5 @@
 import csv
+from math import *
 
 
 def read_csv(csv_filename):
@@ -81,8 +82,8 @@ for week in range(17):
         current_week_probabilities = []
         for j in range(len(total_schedule[i])):
             if cur_week[j] == "":
-                win_probability = 'Bye Week'
-                current_week_probabilities.append(win_probability)
+                win_probability = 0.0000000000000000000000000000001
+                current_week_probabilities.append(log(win_probability ** -1))
                 continue
             opponent_row = int(cur_week[j]) - 1
             team_elo_score = int(cur_week_elo[j])
@@ -90,13 +91,12 @@ for week in range(17):
             team_elo_score += home_field_elo * int(cur_home_field[j])
             opponent_elo_score += home_field_elo * int(cur_home_field[opponent_row])
             win_probability = 1 / (1 + 10 ** ((opponent_elo_score - team_elo_score) / 400))
-            current_week_probabilities.append(win_probability)
+            current_week_probabilities.append(log(win_probability ** -1))
         Week_Probabilities.append(current_week_probabilities)
     Probabilities.append(Week_Probabilities)
 
 # Print Out CSVs
-title = 'Elo Probabilities 2016.csv'
+title = 'Elo Log Probabilities 2016.csv'
 for n in range(len(Probabilities)):
     week_num = 'Week ' + str(n+1) + ' '
     write_csv((week_num + title), Probabilities[n])
-
