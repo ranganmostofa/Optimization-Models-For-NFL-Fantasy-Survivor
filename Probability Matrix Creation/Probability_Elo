@@ -1,0 +1,102 @@
+import csv
+
+
+def read_csv(csv_filename):
+    # Read CSV File
+    """
+    :param csv_filename:
+    :return:
+    """
+    csv_matrix = []
+    with open(csv_filename, "r") as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=",")
+        for row in csv_reader:
+            csv_matrix.append(list(row))
+    return csv_matrix
+
+
+def write_csv(csv_filename, data_matrix):
+    # Write CSV
+    """"
+    :param csv_filename:
+    :param data_matrix:
+    :return:
+    """
+    with open(csv_filename, "w") as csv_file:
+        csv_writer = csv.writer(csv_file, delimiter=",", lineterminator="\n")
+        for row in data_matrix:
+            csv_writer.writerow(list(row))
+
+
+# For Marco (if Marco, Leave Uncommented)
+marco_filename_elo = r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Data\2016 Elo Rankings All Weeks.csv'
+marco_filename_home_away = r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Data\2016 Home Away.csv'
+marco_filename_schedule = r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Data\2016 Schedule.csv'
+Elo_Rankings = read_csv(marco_filename_elo)
+Home_Away = read_csv(marco_filename_home_away)
+Schedule = read_csv(marco_filename_schedule)
+
+Probabilities = []
+
+for week in range(17):
+    # Set Current Week for Optimization
+    current_week = week + 1
+    # Create Probabilities List
+    Week_Probabilities = []
+    # Create List for Elo
+    total_elo = []
+    # Create List for Schedule
+    total_schedule = []
+    # Create List for Home Field Advantage
+    total_home_field = []
+
+    # Determine the Schedule for Each NFL Team, as Well as Home/Away for Each Matchup
+    for week_idx in range(current_week+1, 19):
+        weekly_elo = []
+        weekly_schedule = []
+        weekly_home_field = []
+        for row_idx in range(len(Elo_Rankings)):
+            elo_row = Elo_Rankings[row_idx]
+            schedule_row = Schedule[row_idx]
+            home_field_row = Home_Away[row_idx]
+            current_week_elo = elo_row[week_idx]
+            current_week_schedule = schedule_row[week_idx]
+            current_week_home_field = home_field_row[week_idx]
+            weekly_elo.append(current_week_elo)
+            weekly_schedule.append(current_week_schedule)
+            weekly_home_field.append(current_week_home_field)
+        weekly_elo.pop(0)
+        weekly_schedule.pop(0)
+        weekly_home_field.pop(0)
+        total_elo.append(weekly_elo)
+        total_schedule.append(weekly_schedule)
+        total_home_field.append(weekly_home_field)
+
+    # Determined Home Field Elo Advantage is 57 Points (Process Explained Elsewhere)
+    home_field_elo = 57
+    for i in range(len(total_schedule)):
+        cur_week = total_schedule[i]
+        cur_home_field = total_home_field[i]
+        cur_week_elo = total_elo[i]
+        current_week_probabilities = []
+        for j in range(len(total_schedule[i])):
+            if cur_week[j] == "":
+                win_probability = 'Bye Week'
+                current_week_probabilities.append(win_probability)
+                continue
+            opponent_row = int(cur_week[j]) - 1
+            team_elo_score = int(cur_week_elo[j])
+            opponent_elo_score = int(cur_week_elo[opponent_row])
+            team_elo_score += home_field_elo * int(cur_home_field[j])
+            opponent_elo_score += home_field_elo * int(cur_home_field[opponent_row])
+            win_probability = 1 / (1 + 10 ** ((opponent_elo_score - team_elo_score) / 400))
+            current_week_probabilities.append(win_probability)
+        Week_Probabilities.append(current_week_probabilities)
+    Probabilities.append(Week_Probabilities)
+
+# Print Out CSVs
+title = 'Elo Probabilities 2016.csv'
+for n in range(len(Probabilities)):
+    week_num = 'Week ' + str(n+1) + ' '
+    write_csv((week_num + title), Probabilities[n])
+
