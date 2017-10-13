@@ -39,7 +39,8 @@ selected_nodes = {}
 
 node_set = set(range(1, 1 + NUM_TEAMS)).difference(selected_nodes)
 
-P = read_csv("../Probability Matrix Creation/Shortest Path (Flipped) Probability Matrix 2016 Weeks 1-17.csv")
+# P = read_csv("../Probability Matrix Creation/Shortest Path (Flipped) Probability Matrix 2016 Weeks 1-17.csv")
+P = read_csv("../Probability Matrix Creation/Week 1 Elo Log Probabilities 2016.csv")
 # P[0][15] = 0
 # P[1][4] = 0
 # P[2][28] = 0
@@ -60,7 +61,7 @@ build_t0 = time()
 #                                  tuple([START_NODE]), TERMINAL_NODE, TERMINAL_WEIGHT, START_WEEK, node_set, NUM_WEEKS)
 
 G = GraphConstructor.build_graph(dict(), P,
-                                 tuple([START_NODE]), TERMINAL_NODE, TERMINAL_WEIGHT, START_WEEK, node_set, NUM_WEEKS)
+                                 tuple([START_NODE]), tuple([TERMINAL_NODE]), TERMINAL_WEIGHT, START_WEEK, node_set, NUM_WEEKS)
 
 build_t1 = time()
 
@@ -84,8 +85,8 @@ print("Time taken to find optimal path:", str(dijkstra_t1 - dijkstra_t0), "s\n")
 
 # pprint(prev)
 # pprint(dist)
-print("Optimal Path", prev[TERMINAL_NODE])
-print("Optimal Weight", dist[TERMINAL_NODE])
+print("Optimal Path", prev[tuple([TERMINAL_NODE])])
+print("Optimal Weight", dist[tuple([TERMINAL_NODE])])
 
 print("Week:", START_WEEK + NUM_WEEKS - 1)
 
