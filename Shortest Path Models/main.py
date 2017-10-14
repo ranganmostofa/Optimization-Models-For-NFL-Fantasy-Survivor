@@ -21,7 +21,7 @@ def read_csv(csv_filename):
     return csv_matrix
 
 
-NUM_WEEKS = 4
+NUM_WEEKS = 5
 
 NUM_TEAMS = 32
 
@@ -35,12 +35,12 @@ TERMINAL_WEIGHT = 0.00
 
 # selected_nodes = {16, 5, 29, 7, 10, 1, 12, 13, 27, 26, 14, 4}  # flipped
 # selected_nodes = {29, 1, 5, 7, 10, 12, 16, 13, 27, 26, 14, 4, 19, 20}  # logged
-selected_nodes = {16}
+selected_nodes = {}
 
 node_set = set(range(1, 1 + NUM_TEAMS)).difference(selected_nodes)
 
 # P = read_csv("../Probability Matrix Creation/Shortest Path (Flipped) Probability Matrix 2016 Weeks 1-17.csv")
-P = read_csv("../Probability Matrix Creation/Week 2 Elo Log Probabilities 2016.csv")
+P = read_csv("../Probability Matrix Creation/Week 1 Elo Log Probabilities 2016.csv")
 # P[0][15] = 0
 # P[1][4] = 0
 # P[2][28] = 0
