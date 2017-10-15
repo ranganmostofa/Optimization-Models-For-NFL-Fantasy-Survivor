@@ -135,7 +135,7 @@ def nfl_simulation(current_week, elo_rankings, home_away, schedule, season_elo, 
             ranking = round(team_elo_score_og + ((20 * margin_multiplier) * (-1*win_pct)))
         new_elo_rankings.append(ranking)
 
-    print(new_elo_rankings)
+    print(cur_week_elo)
 
     for item in range(len(win_loss)):
         win_total[item] += win_loss[item]
