@@ -37,23 +37,23 @@ marco_filename_schedule = r'C:\Users\marco_000\Documents\Survivor Football Resea
 Elo_Rankings = read_csv(marco_filename_elo)
 Home_Away = read_csv(marco_filename_home_away)
 Schedule = read_csv(marco_filename_schedule)
-
+Win_Total = 32 * [0]
 week = 1
 
 
-def nfl_simulation(current_week, elo_rankings, home_away, schedule):
-
+def nfl_simulation(current_week, elo_rankings, home_away, schedule, season_elo, win_total):
     cur_week_elo = []
     for k in range(len(elo_rankings)):
         elo_row = elo_rankings[k]
         cur_week_elo.append(elo_row[current_week + 1])
     cur_week_elo.pop(0)
+    season_elo.append(cur_week_elo)
 
     total_schedule = []
     total_home_field = []
 
-    # Determine the Schedule for Each NFL Team, as Well as Home/Away for Each Matchup
-    for week_idx in range(current_week+1, 19):
+    # Determine the Schedule for Each NFL Team, as Well as Home/Away for Each Match-up
+    for week_idx in range(2, 19):
         weekly_schedule = []
         weekly_home_field = []
         for row_idx in range(len(elo_rankings)):
@@ -90,16 +90,18 @@ def nfl_simulation(current_week, elo_rankings, home_away, schedule):
     team_list = []
     win_loss = [0] * 32
     for i in range(len(current_week_spreads)):
+        spread = current_week_spreads[i]
+        if spread == "Bye Week":
+            team_list.append(i)
+            point_differential[i] = "Bye Week"
+            win_loss[i] = 0
+            continue
         if i in team_list:
             continue
         cur_week = total_schedule[current_week - 1]
         opponent_row = int(cur_week[i]) - 1
         team_list.append(i)
         team_list.append(opponent_row)
-        spread = current_week_spreads[i]
-        if spread == "Bye Week":
-            point_differential.append("Bye Week")
-            continue
         game_result = round(rand.normalvariate(spread, 13.45))
         if game_result == 0:
             game_result = round(rand.normalvariate(spread, 13.45))
@@ -113,10 +115,12 @@ def nfl_simulation(current_week, elo_rankings, home_away, schedule):
         point_differential[opponent_row] = game_result * -1
 
     new_elo_rankings = []
-
     cur_week = total_schedule[current_week - 1]
     cur_home_field = total_home_field[current_week - 1]
     for j in range(len(point_differential)):
+        if point_differential[j] == "Bye Week":
+            new_elo_rankings.append(int(cur_week_elo[j]))
+            continue
         opponent_row = int(cur_week[j]) - 1
         team_elo_score_og = int(cur_week_elo[j])
         opponent_elo_score_og = int(cur_week_elo[opponent_row])
@@ -131,6 +135,20 @@ def nfl_simulation(current_week, elo_rankings, home_away, schedule):
             ranking = round(team_elo_score_og + ((20 * margin_multiplier) * (-1*win_pct)))
         new_elo_rankings.append(ranking)
 
-    return new_elo_rankings
+    print(new_elo_rankings)
 
-nfl_simulation(week, Elo_Rankings, Home_Away, Schedule)
+    for item in range(len(win_loss)):
+        win_total[item] += win_loss[item]
+    if current_week == 17:
+        return season_elo
+    else:
+        for i in range(1, len(elo_rankings)):
+            teams = elo_rankings[i]
+            teams[current_week+2] = new_elo_rankings[i-1]
+        next_week = current_week + 1
+        nfl_simulation(next_week, elo_rankings, home_away, schedule, season_elo, win_total)
+        return season_elo, win_total
+
+Season_Elo = nfl_simulation(week, Elo_Rankings, Home_Away, Schedule, [], Win_Total)
+
+print(Season_Elo[1])
