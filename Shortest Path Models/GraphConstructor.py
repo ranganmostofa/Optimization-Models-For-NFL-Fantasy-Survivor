@@ -1,3 +1,6 @@
+from collections import defaultdict
+
+
 class GraphConstructor:
     """
     Class for methods implementing construction of probability trees
@@ -12,17 +15,45 @@ class GraphConstructor:
         the input terminal edge weight
         """
         # use the overloaded method to construct the traditional probability tree
-        G_prime = GraphConstructor.__build_graph(G, P, start_node, start_week, neighbor_set, num_layers)
+        G_prime = GraphConstructor.__build_graph_iterative(G, P, start_node, start_week, neighbor_set, num_layers)
         # determine final nodes
         final_node_set = GraphConstructor.determine_layer_nodes(G_prime, num_layers)
         for final_node in final_node_set:  # for every final node
             # connect the final node to the terminal node using the terminal node_weight
-            GraphConstructor.add_edge(G_prime, final_node, terminal_node, terminal_weight)
+            G[final_node][terminal_node] = terminal_weight
             G_prime[terminal_node] = dict()  # the terminal node has no outgoing edges
         return G_prime  # return the modified probability tree
 
     @staticmethod
-    def __build_graph(G, P, start_node, start_week, neighbor_set, num_layers):
+    def __build_graph_iterative(G, P, start_node, start_week, neighbor_set, num_layers):
+        """
+
+        :param G:
+        :param P:
+        :param start_node:
+        :param start_week:
+        :param neighbor_set:
+        :param num_layers:
+        :return:
+        """
+        current_source_node_set = set()
+        current_source_node_set.add(start_node)
+
+        for current_week in range(start_week, start_week + num_layers):
+            next_source_node_set = set()
+            while len(current_source_node_set):
+                source_node = current_source_node_set.pop()
+                for neighbor in neighbor_set.difference(set(source_node)):
+                    # produce the unique immutable tuple that corresponds to the neighbor_node
+                    child_node = GraphConstructor.produce_child_node(source_node, neighbor)
+                    edge_weight = GraphConstructor.extract_probability(P, child_node, current_week)
+                    G[source_node][child_node] = edge_weight
+                    next_source_node_set.add(child_node)
+            current_source_node_set = next_source_node_set
+        return G
+
+    @staticmethod
+    def __build_graph_recursive(G, P, start_node, start_week, neighbor_set, num_layers):
         """
         Given the starting graph, current probability matrix for the season, the start node,
         the start week, the set of neighbors of the input start node and the number of layers,
@@ -45,7 +76,7 @@ class GraphConstructor:
                                                     GraphConstructor.extract_probability(P, child_node, start_week))
                 # use recursion to mutate the input graph G by building and adding the
                 # relevant subgraph at each recursive level
-                G = GraphConstructor.merge_graph(G_prime, GraphConstructor.__build_graph(
+                G = GraphConstructor.merge_graph(G_prime, GraphConstructor.__build_graph_recursive(
                     dict(), P, child_node, start_week + 1, child_node_set, num_layers - 1))
             return G  # return the final graph or probability tree
 

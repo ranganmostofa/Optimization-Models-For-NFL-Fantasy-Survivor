@@ -5,6 +5,7 @@ from ProbabilityMatrixHelpers import ProbabilityMatrixHelpers
 from Dijkstra import Dijkstra
 from GraphConstructor import GraphConstructor
 from heap_dijkstra import dijkstra
+from collections import defaultdict
 
 
 def read_csv(csv_filename):
@@ -21,7 +22,7 @@ def read_csv(csv_filename):
     return csv_matrix
 
 
-NUM_WEEKS = 4
+NUM_WEEKS = 5
 
 NUM_TEAMS = 32
 
@@ -57,10 +58,10 @@ P = read_csv("../Probability Matrix Creation/Week 1 Elo Log Probabilities 2016.c
 print("Building Graph...\n")
 build_t0 = time()
 
-# G = GraphConstructor.build_graph(dict(), ProbabilityMatrixHelpers.build_cost_matrix(ProbabilityMatrixHelpers.flip_probability_matrix(P)),
+# G = GraphConstructor.build_graph(defaultdict(lambda: defaultdict(float)), ProbabilityMatrixHelpers.build_cost_matrix(ProbabilityMatrixHelpers.flip_probability_matrix(P)),
 #                                  tuple([START_NODE]), TERMINAL_NODE, TERMINAL_WEIGHT, START_WEEK, node_set, NUM_WEEKS)
 
-G = GraphConstructor.build_graph(dict(), P,
+G = GraphConstructor.build_graph(defaultdict(lambda: defaultdict(float)), P,
                                  tuple([START_NODE]), tuple([TERMINAL_NODE]), TERMINAL_WEIGHT, START_WEEK, node_set, NUM_WEEKS)
 
 build_t1 = time()
