@@ -1,6 +1,11 @@
 import csv
 from math import *
 import random as rand
+from GraphConstructor import GraphConstructor
+from heap_dijkstra import dijkstra
+from collections import defaultdict
+from SimulationWinProbability import probability
+
 
 
 def read_csv(csv_filename):
@@ -140,7 +145,7 @@ def nfl_simulation(current_week, elo_rankings, home_away, schedule, season_elo, 
     for item in range(len(win_loss)):
         win_total[item] += win_loss[item]
     if current_week == 17:
-        return season_elo
+        return season_elo, win_total
     else:
         for i in range(1, len(elo_rankings)):
             teams = elo_rankings[i]
@@ -152,3 +157,4 @@ def nfl_simulation(current_week, elo_rankings, home_away, schedule, season_elo, 
 Season_Elo = nfl_simulation(week, Elo_Rankings, Home_Away, Schedule, [], Win_Total)
 
 print(Season_Elo[1])
+

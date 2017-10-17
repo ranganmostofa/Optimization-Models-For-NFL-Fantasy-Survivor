@@ -22,7 +22,7 @@ def read_csv(csv_filename):
     return csv_matrix
 
 
-NUM_WEEKS = 5
+NUM_WEEKS = 4
 
 NUM_TEAMS = 32
 

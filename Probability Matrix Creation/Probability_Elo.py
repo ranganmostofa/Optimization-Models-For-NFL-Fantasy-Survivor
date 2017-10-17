@@ -48,7 +48,6 @@ for week in range(17):
     total_schedule = []
     # Create List for Home Field Advantage
     total_home_field = []
-
     cur_week_elo = []
 
     for k in range(len(Elo_Rankings)):
@@ -58,7 +57,6 @@ for week in range(17):
 
     # Determine the Schedule for Each NFL Team, as Well as Home/Away for Each Matchup
     for week_idx in range(current_week+1, 19):
-        weekly_elo = []
         weekly_schedule = []
         weekly_home_field = []
         for row_idx in range(len(Elo_Rankings)):
@@ -97,7 +95,6 @@ for week in range(17):
         diff = 17 - len(Week_Probabilities)
         for n in range(diff):
             Week_Probabilities.append([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])
-
     Probabilities.append(Week_Probabilities)
 
 # Print Out CSVs
