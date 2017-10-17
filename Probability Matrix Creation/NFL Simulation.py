@@ -7,7 +7,6 @@ from collections import defaultdict
 from SimulationWinProbability import probability
 
 
-
 def read_csv(csv_filename):
     # Read CSV File
     """
@@ -46,7 +45,7 @@ Win_Total = 32 * [0]
 week = 1
 
 
-def nfl_simulation(current_week, elo_rankings, home_away, schedule, season_elo, win_total):
+def nfl_simulation(current_week, elo_rankings, home_away, schedule, selected_teams, season_elo, win_total):
     cur_week_elo = []
     for k in range(len(elo_rankings)):
         elo_row = elo_rankings[k]
@@ -73,9 +72,27 @@ def nfl_simulation(current_week, elo_rankings, home_away, schedule, season_elo, 
         total_schedule.append(weekly_schedule)
         total_home_field.append(weekly_home_field)
 
+    P = probability(cur_week_elo, home_away, schedule, current_week)
+    NUM_TEAMS = 32
+    START_NODE = "S"
+    TERMINAL_NODE = "T"
+    TERMINAL_WEIGHT = 0.00
+    START_WEEK = current_week
+    if current_week < 15:
+        NUM_WEEKS = 4
+    else:
+        NUM_WEEKS = current_week - 4
+    selected_nodes = selected_teams
+    node_set = set(range(1, 1 + NUM_TEAMS)).difference(selected_nodes)
+    G = GraphConstructor.build_graph(defaultdict(lambda: defaultdict(float)), P,
+                                     tuple([START_NODE]), tuple([TERMINAL_NODE]), TERMINAL_WEIGHT, START_WEEK, node_set,
+                                     NUM_WEEKS)
+    dist, prev = dijkstra(G, tuple([START_NODE]))
+    #selected_teams.append(dist[1])
+    print(dist)
+
     current_week_spreads = []
     home_field_elo = 57
-
     for j in range(len(total_schedule[current_week-1])):
         cur_week = total_schedule[current_week-1]
         cur_home_field = total_home_field[current_week-1]
@@ -151,10 +168,10 @@ def nfl_simulation(current_week, elo_rankings, home_away, schedule, season_elo, 
             teams = elo_rankings[i]
             teams[current_week+2] = new_elo_rankings[i-1]
         next_week = current_week + 1
-        nfl_simulation(next_week, elo_rankings, home_away, schedule, season_elo, win_total)
+        nfl_simulation(next_week, elo_rankings, home_away, schedule, selected_teams, season_elo, win_total)
         return season_elo, win_total
 
-Season_Elo = nfl_simulation(week, Elo_Rankings, Home_Away, Schedule, [], Win_Total)
+Season_Elo = nfl_simulation(week, Elo_Rankings, Home_Away, Schedule, [], [], Win_Total)
 
 print(Season_Elo[1])
 
