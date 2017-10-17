@@ -59,29 +59,17 @@ def normdist(x, mu, sigma, f):
 
 
 # For Marco (if Marco, Leave Uncommented)
-marco_filename_elo = r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Data\2016 Elo Rankings All Weeks.csv'
-marco_filename_home_away = r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Data\2016 Home Away.csv'
-marco_filename_schedule = r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Data\2016 Schedule.csv'
-marco_filename_spreads_thur = r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Data\Thursday Night Spreads Week 1.csv'
-marco_filename_spreads_sun = r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Data\Sunday Spreads Week 1.csv'
-marco_filename_spreads_mon = r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Data\Monday Night Spreads Week 1.csv'
+marco_filename_elo = '.../2016 Elo Rankings All Weeks.csv'
+marco_filename_home_away = '.../2016 Home Away.csv'
+marco_filename_schedule = '.../2016 Schedule.csv'
+marco_filename_spreads_thur = '.../Thursday Night Spreads Week 1.csv'
+marco_filename_spreads_sun = '.../Sunday Spreads Week 1.csv'
+marco_filename_spreads_mon = '.../Monday Night Spreads Week 1.csv'
 # Import in Elo, Vegas Spreads, Team Schedule, and Home/Away CSV file data
 Elo_Rankings = read_csv(marco_filename_elo)
 Home_Away = read_csv(marco_filename_home_away)
 Schedule = read_csv(marco_filename_schedule)
 Spreads = read_csv(marco_filename_spreads_thur)
-
-# For Rangan (if Rangan, Leave Uncommented)
-# rangan_filename_elo = 0
-# rangan_filename_home_away = 0
-# rangan_filename_schedule = 0
-# rangan_filename_spreads_thur = 0
-# rangan_filename_spreads_sun = 0
-# rangan_filename_spreads_mon = 0
-# Elo_Rankings = read_csv(rangan_filename_elo)
-# Home_Away = read_csv(rangan_filename_home_away)
-# Schedule = read_csv(rangan_filename_schedule)
-# Spreads = read_csv(rangan_filename_spreads_thurs)
 
 # Initialize NFL Team List
 nfl_teams = []

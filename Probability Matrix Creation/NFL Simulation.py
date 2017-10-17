@@ -34,9 +34,9 @@ def write_csv(csv_filename, data_matrix):
             csv_writer.writerow(list(row))
 
 
-marco_filename_elo = r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Data\2016 Elo Rankings All Weeks.csv'
-marco_filename_home_away = r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Data\2016 Home Away.csv'
-marco_filename_schedule = r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Data\2016 Schedule.csv'
+marco_filename_elo = '.../2016 Elo Rankings All Weeks.csv'
+marco_filename_home_away = '.../2016 Home Away.csv'
+marco_filename_schedule = '.../2016 Schedule.csv'
 
 Elo_Rankings = read_csv(marco_filename_elo)
 Home_Away = read_csv(marco_filename_home_away)
@@ -72,23 +72,23 @@ def nfl_simulation(current_week, elo_rankings, home_away, schedule, selected_tea
         total_schedule.append(weekly_schedule)
         total_home_field.append(weekly_home_field)
 
-    P = probability(cur_week_elo, home_away, schedule, current_week)
-    NUM_TEAMS = 32
-    START_NODE = "S"
-    TERMINAL_NODE = "T"
-    TERMINAL_WEIGHT = 0.00
-    START_WEEK = current_week
+    p = probability(cur_week_elo, home_away, schedule, current_week)
+    num_teams = 32
+    start_node = "S"
+    terminal_node = "T"
+    terminal_weight = 0.00
+    start_week = current_week
     if current_week < 15:
-        NUM_WEEKS = 4
+        num_weeks = 4
     else:
-        NUM_WEEKS = current_week - 4
+        num_weeks = current_week - 4
     selected_nodes = selected_teams
-    node_set = set(range(1, 1 + NUM_TEAMS)).difference(selected_nodes)
-    G = GraphConstructor.build_graph(defaultdict(lambda: defaultdict(float)), P,
-                                     tuple([START_NODE]), tuple([TERMINAL_NODE]), TERMINAL_WEIGHT, START_WEEK, node_set,
-                                     NUM_WEEKS)
-    dist, prev = dijkstra(G, tuple([START_NODE]))
-    #selected_teams.append(dist[1])
+    node_set = set(range(1, 1 + num_teams)).difference(selected_nodes)
+    g = GraphConstructor.build_graph(defaultdict(lambda: defaultdict(float)), p,
+                                     tuple([start_node]), tuple([terminal_node]), terminal_weight, start_week, node_set,
+                                     num_weeks)
+    dist, prev = dijkstra(g, tuple([start_node]))
+    # selected_teams.append(dist[1])
     print(dist)
 
     current_week_spreads = []

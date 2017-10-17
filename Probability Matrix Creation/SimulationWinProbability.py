@@ -9,7 +9,7 @@ def probability(week_elo, home_away, schedule, week):
     # Create List for Home Field Advantage
     total_home_field = []
 
-    # Determine the Schedule for Each NFL Team, as Well as Home/Away for Each Matchup
+    # Determine the Schedule for Each NFL Team, as Well as Home/Away for Each Match-up
     for week_idx in range(week + 1, 19):
         weekly_schedule = []
         weekly_home_field = []
