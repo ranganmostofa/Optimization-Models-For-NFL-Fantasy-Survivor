@@ -70,7 +70,6 @@ for week in range(17):
         weekly_home_field.pop(0)
         total_schedule.append(weekly_schedule)
         total_home_field.append(weekly_home_field)
-
     # Determined Home Field Elo Advantage is 57 Points (Process Explained Elsewhere)
     home_field_elo = 57
     for i in range(len(total_schedule)):
@@ -78,9 +77,6 @@ for week in range(17):
         cur_home_field = total_home_field[i]
         current_week_probabilities = []
         for j in range(len(total_schedule[i])):
-            print('==')
-            print(i)
-            print(j)
             if cur_week[j] == "":
                 win_probability = 0.0000000000000000000000000000001
                 current_week_probabilities.append(log(win_probability ** -1))

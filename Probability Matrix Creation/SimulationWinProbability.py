@@ -1,8 +1,35 @@
 from math import *
+import csv
+
+def read_csv(csv_filename):
+    # Read CSV File
+    """
+    :param csv_filename:
+    :return:
+    """
+    csv_matrix = []
+    with open(csv_filename, "r") as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=",")
+        for row in csv_reader:
+            csv_matrix.append(list(row))
+    return csv_matrix
+
+marco_filename_elo = r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Data\2016 Elo Rankings All Weeks.csv'
+marco_filename_home_away = r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Data\2016 Home Away.csv'
+marco_filename_schedule = r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Data\2016 Schedule.csv'
+Elo_Rankings = read_csv(marco_filename_elo)
+Home_Away = read_csv(marco_filename_home_away)
+Schedule = read_csv(marco_filename_schedule)
+
+cur_week_elo = []
+for k in range(len(Elo_Rankings)):
+    elo_row = Elo_Rankings[k]
+    cur_week_elo.append(elo_row[1 + 1])
+cur_week_elo.pop(0)
 
 
 def probability(week_elo, home_away, schedule, week):
-    probabilities = []
+    #probabilities = []
     # Create Probabilities List
     week_probabilities = []
     # Create List for Schedule
@@ -26,24 +53,24 @@ def probability(week_elo, home_away, schedule, week):
         total_schedule.append(weekly_schedule)
         total_home_field.append(weekly_home_field)
 
-        # Determined Home Field Elo Advantage is 57 Points (Process Explained Elsewhere)
-        home_field_elo = 57
-        for i in range(len(total_schedule)):
-            cur_week = total_schedule[i]
-            cur_home_field = total_home_field[i]
-            current_week_probabilities = []
-            for j in range(len(total_schedule[i])):
-                if cur_week[j] == "":
-                    win_probability = 0.0000000000000000000000000000001
-                    current_week_probabilities.append(log(win_probability ** -1))
-                    continue
-                opponent_row = int(cur_week[j]) - 1
-                team_elo_score = int(week_elo[j])
-                opponent_elo_score = int(week_elo[opponent_row])
-                team_elo_score += home_field_elo * int(cur_home_field[j])
-                opponent_elo_score += home_field_elo * int(cur_home_field[opponent_row])
-                win_probability = 1 / (1 + 10 ** ((opponent_elo_score - team_elo_score) / 400))
+    #Determined Home Field Elo Advantage is 57 Points (Process Explained Elsewhere)
+    home_field_elo = 57
+    for i in range(len(total_schedule)):
+        cur_week = total_schedule[i]
+        cur_home_field = total_home_field[i]
+        current_week_probabilities = []
+        for j in range(len(total_schedule[i])):
+            if cur_week[j] == "":
+                win_probability = 0.0000000000000000000000000000001
                 current_week_probabilities.append(log(win_probability ** -1))
-            week_probabilities.append(current_week_probabilities)
-    probabilities.append(week_probabilities)
-    return probabilities
+                continue
+            opponent_row = int(cur_week[j]) - 1
+            team_elo_score = int(week_elo[j])
+            opponent_elo_score = int(week_elo[opponent_row])
+            team_elo_score += home_field_elo * int(cur_home_field[j])
+            opponent_elo_score += home_field_elo * int(cur_home_field[opponent_row])
+            win_probability = 1 / (1 + 10 ** ((opponent_elo_score - team_elo_score) / 400))
+            current_week_probabilities.append(log(win_probability ** -1))
+        week_probabilities.append(current_week_probabilities)
+    return week_probabilities
+

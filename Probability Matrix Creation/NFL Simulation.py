@@ -76,8 +76,6 @@ def nfl_simulation(current_week, elo_rankings, home_away, schedule, selected_tea
     diff = 17 - len(p)
     for n in range(diff):
         p.append([0]*32)
-    print(p)
-    print(len(p))
     num_teams = 32
     start_node = "S"
     terminal_node = "T"
@@ -86,7 +84,9 @@ def nfl_simulation(current_week, elo_rankings, home_away, schedule, selected_tea
     if current_week < 15:
         num_weeks = 4
     else:
-        num_weeks = current_week - 4
+        num_weeks = 18 - current_week
+    print(current_week)
+    print(p)
     selected_nodes = selected_teams
     node_set = set(range(1, 1 + num_teams)).difference(selected_nodes)
     g = GraphConstructor.build_graph(defaultdict(lambda: defaultdict(float)), p,
