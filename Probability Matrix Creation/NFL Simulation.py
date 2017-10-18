@@ -45,8 +45,9 @@ Win_Total = 32 * [0]
 week = 1
 
 
-def nfl_simulation(current_week, elo_rankings, home_away, schedule, selected_teams, season_elo, win_total, win_picks):
-    nfl_teams = ['ARI', 'ATL', 'BAL', 'BUF', 'CAR', 'CHI', 'CIN', 'CLE','DAL','DEN','DET','GB', 'HOU', 'IND', 'JAX',
+def nfl_simulation(current_week, elo_rankings, home_away, schedule, selected_teams,
+                   season_elo, win_total, win_picks, prob):
+    nfl_teams = ['ARI', 'ATL', 'BAL', 'BUF', 'CAR', 'CHI', 'CIN', 'CLE','DAL', 'DEN', 'DET', 'GB', 'HOU', 'IND', 'JAX',
                  'KC', 'LA', 'MIA', 'MIN', 'NE', 'NO', 'NYG', 'NYJ', 'OAK', 'PHI', 'PIT', 'SD', 'SF', 'SEA', 'TB',
                  'TEN', 'WSH']
     cur_week_elo = []
@@ -144,21 +145,25 @@ def nfl_simulation(current_week, elo_rankings, home_away, schedule, selected_tea
         point_differential[opponent_row] = game_result * -1
 
     cur_p = p[0]
+    team_prob = exp(-1*cur_p[optimal_team-1])
+    prob *= team_prob
+    end_prob = prob
     print('Team Selected')
     print(nfl_teams[optimal_team-1])
     print('Win Probability')
-    print(exp(-1*cur_p[optimal_team-1]))
+    print(team_prob)
     print('Teams Already Selected')
     print(selected_teams)
+    print('Total Probability')
+    print(prob)
+
     if win_loss[optimal_team-1] == 1:
         print('WIN!')
         win_picks += 1
+        print(win_picks)
     else:
         print('Lose :(')
-
-    if current_week == 17:
-        print('Survivor Correct Picks')
-        print(win_picks)
+        return win_picks, end_prob, season_elo, win_total
 
     new_elo_rankings = []
     cur_week = total_schedule[current_week - 1]
@@ -183,18 +188,26 @@ def nfl_simulation(current_week, elo_rankings, home_away, schedule, selected_tea
 
     for item in range(len(win_loss)):
         win_total[item] += win_loss[item]
+
     if current_week == 17:
-        return season_elo, win_total
+        end_wins = 17
+        return win_picks, end_prob, season_elo, win_total
     else:
         for i in range(1, len(elo_rankings)):
             teams = elo_rankings[i]
             teams[current_week+2] = new_elo_rankings[i-1]
         next_week = current_week + 1
-        nfl_simulation(next_week, elo_rankings, home_away, schedule, selected_teams, season_elo, win_total, win_picks)
-        return season_elo, win_total
+        nfl_simulation(next_week, elo_rankings, home_away, schedule, selected_teams,
+                       season_elo, win_total, win_picks, prob)
+        return win_picks, end_prob, season_elo, win_total
 
-Season_Elo = nfl_simulation(week, Elo_Rankings, Home_Away, Schedule, [], [], Win_Total, 0)
+Season_Elo = nfl_simulation(week, Elo_Rankings, Home_Away, Schedule, [], [], Win_Total, 0, 1)
 
-print('Win Total')
-print(Season_Elo[1])
+print(Season_Elo)
+print('====')
+print('====')
+print('Successful Weeks')
+print(Season_Elo[0])
+print('All Teams Win Total')
+print(Season_Elo[3])
 
