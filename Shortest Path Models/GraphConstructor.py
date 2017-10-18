@@ -1,12 +1,9 @@
-from collections import defaultdict
-
-
 class GraphConstructor:
     """
     Class for methods implementing construction of probability trees
     """
     @staticmethod
-    def build_graph(G, P, start_node, terminal_node, terminal_weight, start_week, neighbor_set, num_layers):
+    def build_graph(G, P, start_node, terminal_node, terminal_weight, start_week, neighbor_set, num_layers, top_k=32):
         """
         Given the starting graph, current probability matrix for the season, the start node, the
         terminal node, the weight of edges leading to the terminal node, the start week, the set
@@ -15,7 +12,7 @@ class GraphConstructor:
         the input terminal edge weight
         """
         # use the overloaded method to construct the traditional probability tree
-        G_prime = GraphConstructor.__build_graph_iterative(G, P, start_node, start_week, neighbor_set, num_layers)
+        G_prime = GraphConstructor.__build_graph_iterative(G, P, start_node, start_week, neighbor_set, num_layers, top_k)
         # determine final nodes
         final_node_set = GraphConstructor.determine_layer_nodes(G_prime, num_layers)
         for final_node in final_node_set:  # for every final node
@@ -25,7 +22,7 @@ class GraphConstructor:
         return G_prime  # return the modified probability tree
 
     @staticmethod
-    def __build_graph_iterative(G, P, start_node, start_week, neighbor_set, num_layers):
+    def __build_graph_iterative(G, P, start_node, start_week, neighbor_set, num_layers, top_k):
         """
 
         :param G:
@@ -43,7 +40,8 @@ class GraphConstructor:
             next_source_node_set = set()
             while len(current_source_node_set):
                 source_node = current_source_node_set.pop()
-                for neighbor in neighbor_set.difference(set(source_node)):
+                # print(GraphConstructor.determine_top_k_teams(P, current_week, top_k))
+                for neighbor in neighbor_set.difference(set(source_node)).intersection(GraphConstructor.determine_top_k_teams(P, current_week, top_k)):
                     # produce the unique immutable tuple that corresponds to the neighbor_node
                     child_node = GraphConstructor.produce_child_node(source_node, neighbor)
                     edge_weight = GraphConstructor.extract_probability(P, child_node, current_week)
@@ -53,7 +51,7 @@ class GraphConstructor:
         return G
 
     @staticmethod
-    def __build_graph_recursive(G, P, start_node, start_week, neighbor_set, num_layers):
+    def __build_graph_recursive(G, P, start_node, start_week, neighbor_set, num_layers, top_k):
         """
         Given the starting graph, current probability matrix for the season, the start node,
         the start week, the set of neighbors of the input start node and the number of layers,
@@ -79,6 +77,33 @@ class GraphConstructor:
                 G = GraphConstructor.merge_graph(G_prime, GraphConstructor.__build_graph_recursive(
                     dict(), P, child_node, start_week + 1, child_node_set, num_layers - 1))
             return G  # return the final graph or probability tree
+
+    @staticmethod
+    def determine_top_k_teams(P, week_number, k):
+        """
+
+        :param P:
+        :param week_number:
+        :param k:
+        :return:
+        """
+        top_k_team_indices = set()
+        probabilities = P[week_number - 1]
+        k_order_min_probability = GraphConstructor.extract_k_order_minimum_probability(probabilities, k)
+        for probability_index in range(len(probabilities)):
+            if probabilities[probability_index] <= k_order_min_probability:
+                top_k_team_indices.add(probability_index + 1)
+        return top_k_team_indices
+
+    @staticmethod
+    def extract_k_order_minimum_probability(probabilities, k):
+        """
+
+        :param probabilities:
+        :param k:
+        :return:
+        """
+        return sorted(probabilities)[k - 1]
 
     @staticmethod
     def determine_layer_nodes(graph, layer):
