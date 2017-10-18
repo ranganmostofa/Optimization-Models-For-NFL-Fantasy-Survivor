@@ -22,9 +22,9 @@ def read_csv(csv_filename):
     return csv_matrix
 
 
-K = 5  # must be more than or equal to number of weeks
+K = 8  # must be more than or equal to number of weeks
 
-NUM_WEEKS = 5
+NUM_WEEKS = 8
 
 NUM_TEAMS = 32
 

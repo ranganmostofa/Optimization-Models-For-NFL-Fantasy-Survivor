@@ -21,19 +21,6 @@ def read_csv(csv_filename):
     return csv_matrix
 
 
-def write_csv(csv_filename, data_matrix):
-    # Write CSV
-    """"
-    :param csv_filename:
-    :param data_matrix:
-    :return:
-    """
-    with open(csv_filename, "w") as csv_file:
-        csv_writer = csv.writer(csv_file, delimiter=",", lineterminator="\n")
-        for row in data_matrix:
-            csv_writer.writerow(list(row))
-
-
 marco_filename_elo = r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Data\2016 Elo Rankings All Weeks.csv'
 marco_filename_home_away = r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Data\2016 Home Away.csv'
 marco_filename_schedule = r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Data\2016 Schedule.csv'
@@ -147,7 +134,6 @@ def nfl_simulation(current_week, elo_rankings, home_away, schedule, selected_tea
     cur_p = p[0]
     team_prob = exp(-1*cur_p[optimal_team-1])
     prob *= team_prob
-    end_prob = prob
     print('Team Selected')
     print(nfl_teams[optimal_team-1])
     print('Win Probability')
@@ -160,10 +146,9 @@ def nfl_simulation(current_week, elo_rankings, home_away, schedule, selected_tea
     if win_loss[optimal_team-1] == 1:
         print('WIN!')
         win_picks += 1
-        print(win_picks)
     else:
         print('Lose :(')
-        return win_picks, end_prob, season_elo, win_total
+        return win_picks, prob, season_elo, win_total
 
     new_elo_rankings = []
     cur_week = total_schedule[current_week - 1]
@@ -191,7 +176,7 @@ def nfl_simulation(current_week, elo_rankings, home_away, schedule, selected_tea
 
     if current_week == 17:
         end_wins = 17
-        return win_picks, end_prob, season_elo, win_total
+        return win_picks, prob, season_elo, win_total
     else:
         for i in range(1, len(elo_rankings)):
             teams = elo_rankings[i]
@@ -199,15 +184,14 @@ def nfl_simulation(current_week, elo_rankings, home_away, schedule, selected_tea
         next_week = current_week + 1
         nfl_simulation(next_week, elo_rankings, home_away, schedule, selected_teams,
                        season_elo, win_total, win_picks, prob)
-        return win_picks, end_prob, season_elo, win_total
+        return win_picks, prob, season_elo, win_total
 
-Season_Elo = nfl_simulation(week, Elo_Rankings, Home_Away, Schedule, [], [], Win_Total, 0, 1)
+# Season_Elo = nfl_simulation(week, Elo_Rankings, Home_Away, Schedule, [], [], Win_Total, 0, 1)
 
-print(Season_Elo)
-print('====')
-print('====')
-print('Successful Weeks')
-print(Season_Elo[0])
-print('All Teams Win Total')
-print(Season_Elo[3])
+# print('====')
+# print('====')
+# print('Successful Weeks')
+# print(len(Season_Elo[2])-1)
+# print('All Teams Win Total')
+# print(Season_Elo[3])
 
