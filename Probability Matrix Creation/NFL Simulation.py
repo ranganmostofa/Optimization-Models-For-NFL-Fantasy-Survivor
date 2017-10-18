@@ -85,16 +85,15 @@ def nfl_simulation(current_week, elo_rankings, home_away, schedule, selected_tea
         num_weeks = 4
     else:
         num_weeks = 18 - current_week
-    print(current_week)
-    print(p)
     selected_nodes = selected_teams
     node_set = set(range(1, 1 + num_teams)).difference(selected_nodes)
     g = GraphConstructor.build_graph(defaultdict(lambda: defaultdict(float)), p,
                                      tuple([start_node]), tuple([terminal_node]), terminal_weight, start_week, node_set,
                                      num_weeks)
     dist, prev = dijkstra(g, tuple([start_node]))
-    # selected_teams.append(dist[1])
-    print(dist)
+    optimal_path = prev[tuple([terminal_node])]
+    optimal_team = optimal_path[1]
+    selected_teams.append(optimal_team)
 
     current_week_spreads = []
     home_field_elo = 57
@@ -141,6 +140,14 @@ def nfl_simulation(current_week, elo_rankings, home_away, schedule, selected_tea
         point_differential[i] = game_result
         point_differential[opponent_row] = game_result * -1
 
+    print(selected_teams)
+    print(optimal_team)
+    print(win_loss)
+    if win_loss[optimal_team-1] == 1:
+        print('WIN!')
+    else:
+        print('Lose :(')
+
     new_elo_rankings = []
     cur_week = total_schedule[current_week - 1]
     cur_home_field = total_home_field[current_week - 1]
@@ -162,8 +169,6 @@ def nfl_simulation(current_week, elo_rankings, home_away, schedule, selected_tea
             ranking = round(team_elo_score_og + ((20 * margin_multiplier) * (-1*win_pct)))
         new_elo_rankings.append(ranking)
 
-    print(cur_week_elo)
-
     for item in range(len(win_loss)):
         win_total[item] += win_loss[item]
     if current_week == 17:
@@ -178,5 +183,6 @@ def nfl_simulation(current_week, elo_rankings, home_away, schedule, selected_tea
 
 Season_Elo = nfl_simulation(week, Elo_Rankings, Home_Away, Schedule, [], [], Win_Total)
 
+print('Win Total')
 print(Season_Elo[1])
 
