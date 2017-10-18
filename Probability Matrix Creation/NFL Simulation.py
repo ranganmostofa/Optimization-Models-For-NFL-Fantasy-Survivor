@@ -34,9 +34,9 @@ def write_csv(csv_filename, data_matrix):
             csv_writer.writerow(list(row))
 
 
-marco_filename_elo = '.../2016 Elo Rankings All Weeks.csv'
-marco_filename_home_away = '.../2016 Home Away.csv'
-marco_filename_schedule = '.../2016 Schedule.csv'
+marco_filename_elo = r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Data\2016 Elo Rankings All Weeks.csv'
+marco_filename_home_away = r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Data\2016 Home Away.csv'
+marco_filename_schedule = r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Data\2016 Schedule.csv'
 
 Elo_Rankings = read_csv(marco_filename_elo)
 Home_Away = read_csv(marco_filename_home_away)
@@ -73,6 +73,11 @@ def nfl_simulation(current_week, elo_rankings, home_away, schedule, selected_tea
         total_home_field.append(weekly_home_field)
 
     p = probability(cur_week_elo, home_away, schedule, current_week)
+    diff = 17 - len(p)
+    for n in range(diff):
+        p.append([0]*32)
+    print(p)
+    print(len(p))
     num_teams = 32
     start_node = "S"
     terminal_node = "T"

@@ -2,6 +2,7 @@ from math import *
 
 
 def probability(week_elo, home_away, schedule, week):
+    probabilities = []
     # Create Probabilities List
     week_probabilities = []
     # Create List for Schedule
@@ -44,5 +45,5 @@ def probability(week_elo, home_away, schedule, week):
                 win_probability = 1 / (1 + 10 ** ((opponent_elo_score - team_elo_score) / 400))
                 current_week_probabilities.append(log(win_probability ** -1))
             week_probabilities.append(current_week_probabilities)
-
-    return week_probabilities
+    probabilities.append(week_probabilities)
+    return probabilities

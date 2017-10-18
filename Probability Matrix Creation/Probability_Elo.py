@@ -78,6 +78,9 @@ for week in range(17):
         cur_home_field = total_home_field[i]
         current_week_probabilities = []
         for j in range(len(total_schedule[i])):
+            print('==')
+            print(i)
+            print(j)
             if cur_week[j] == "":
                 win_probability = 0.0000000000000000000000000000001
                 current_week_probabilities.append(log(win_probability ** -1))
@@ -90,11 +93,10 @@ for week in range(17):
             win_probability = 1 / (1 + 10 ** ((opponent_elo_score - team_elo_score) / 400))
             current_week_probabilities.append(log(win_probability ** -1))
         Week_Probabilities.append(current_week_probabilities)
-
     if len(Week_Probabilities) < 17:
         diff = 17 - len(Week_Probabilities)
         for n in range(diff):
-            Week_Probabilities.append([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])
+            Week_Probabilities.append([0]*32)
     Probabilities.append(Week_Probabilities)
 
 # Print Out CSVs
