@@ -29,9 +29,9 @@ def write_csv(csv_filename, data_matrix):
             csv_writer.writerow(list(row))
 
 
-marco_filename_elo = r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Data\2016 Elo Rankings All Weeks.csv'
-marco_filename_home_away = r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Data\2016 Home Away.csv'
-marco_filename_schedule = r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Data\2016 Schedule.csv'
+marco_filename_elo = r'../Probability Matrix Inputs/2016/2016 Elo Rankings All Weeks.csv'
+marco_filename_home_away = r'../Probability Matrix Inputs/2016/2016 Home Away.csv'
+marco_filename_schedule = r'../Probability Matrix Inputs/2016/2016 Schedule.csv'
 
 Elo_Rankings = read_csv(marco_filename_elo)
 Home_Away = read_csv(marco_filename_home_away)
@@ -41,7 +41,7 @@ week = 1
 a = [1, 3, 4]
 Weeks_Successful = []
 Runs = []
-for i in range():
+for i in range(300):
     Results = nfl_simulation(week, Elo_Rankings, Home_Away, Schedule, [], [], Win_Total, 0, 1)
     check = Results[2]
     weeks_correct = len(check) - 1
@@ -52,4 +52,4 @@ for i in range():
     print(i)
 
 Runs.append(Weeks_Successful)
-write_csv('NFL Simulations4.csv', Runs)
+write_csv('NFL Simulations5.csv', Runs)

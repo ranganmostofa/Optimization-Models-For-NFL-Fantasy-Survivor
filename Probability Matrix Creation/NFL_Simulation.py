@@ -21,9 +21,9 @@ def read_csv(csv_filename):
     return csv_matrix
 
 
-marco_filename_elo = r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Data\2016 Elo Rankings All Weeks.csv'
-marco_filename_home_away = r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Data\2016 Home Away.csv'
-marco_filename_schedule = r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Data\2016 Schedule.csv'
+marco_filename_elo = r'../Probability Matrix Inputs/2016/2016 Elo Rankings All Weeks.csv'
+marco_filename_home_away = r'../Probability Matrix Inputs/2016/2016 Home Away.csv'
+marco_filename_schedule = r'../Probability Matrix Inputs/2016/2016 Schedule.csv'
 
 Elo_Rankings = read_csv(marco_filename_elo)
 Home_Away = read_csv(marco_filename_home_away)
