@@ -41,7 +41,8 @@ class GraphConstructor:
             while len(current_source_node_set):
                 source_node = current_source_node_set.pop()
                 # print(GraphConstructor.determine_top_k_teams(P, current_week, top_k))
-                for neighbor in neighbor_set.difference(set(source_node)).intersection(GraphConstructor.determine_top_k_teams(P, current_week, top_k)):
+                adjusted_neighbor_set = neighbor_set.difference(set(source_node))
+                for neighbor in GraphConstructor.determine_top_k_teams(P, adjusted_neighbor_set, current_week, top_k):
                     # produce the unique immutable tuple that corresponds to the neighbor_node
                     child_node = GraphConstructor.produce_child_node(source_node, neighbor)
                     edge_weight = GraphConstructor.extract_probability(P, child_node, current_week)
@@ -79,31 +80,35 @@ class GraphConstructor:
             return G  # return the final graph or probability tree
 
     @staticmethod
-    def determine_top_k_teams(P, week_number, k):
+    def determine_top_k_teams(P, neighbor_set, week_number, k):
         """
-
+        
         :param P:
-        :param week_number:
-        :param k:
-        :return:
+        :param neighbor_set: 
+        :param week_number: 
+        :param k: 
+        :return: 
         """
         top_k_team_indices = set()
         probabilities = P[week_number - 1]
-        k_order_min_probability = GraphConstructor.extract_k_order_minimum_probability(probabilities, k)
-        for probability_index in range(len(probabilities)):
-            if probabilities[probability_index] <= k_order_min_probability:
-                top_k_team_indices.add(probability_index + 1)
+        probability_map = GraphConstructor.construct_probability_to_index_map(probabilities)
+        for probability in sorted(probabilities):
+            original_probability_index = probability_map[probability]
+            if original_probability_index + 1 in neighbor_set and len(top_k_team_indices) < k:
+                top_k_team_indices.add(original_probability_index + 1)
         return top_k_team_indices
 
     @staticmethod
-    def extract_k_order_minimum_probability(probabilities, k):
+    def construct_probability_to_index_map(probabilities):
         """
 
         :param probabilities:
-        :param k:
         :return:
         """
-        return sorted(probabilities)[k - 1]
+        probability_map = dict()
+        for probability_index in range(len(probabilities)):
+            probability_map[probabilities[probability_index]] = probability_index
+        return probability_map
 
     @staticmethod
     def determine_layer_nodes(graph, layer):
