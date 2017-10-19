@@ -41,7 +41,7 @@ week = 1
 a = [1, 3, 4]
 Weeks_Successful = []
 Runs = []
-for i in range(100):
+for i in range():
     Results = nfl_simulation(week, Elo_Rankings, Home_Away, Schedule, [], [], Win_Total, 0, 1)
     check = Results[2]
     weeks_correct = len(check) - 1
@@ -49,6 +49,7 @@ for i in range(100):
         if sum(check[16]) > 0:
             weeks_correct = 17
     Weeks_Successful.append(weeks_correct)
-    Runs.append(Weeks_Successful)
     print(i)
-write_csv('NFL Simulations2.csv', Runs)
+
+Runs.append(Weeks_Successful)
+write_csv('NFL Simulations4.csv', Runs)
