@@ -38,7 +38,6 @@ Home_Away = read_csv(marco_filename_home_away)
 Schedule = read_csv(marco_filename_schedule)
 Win_Total = 32 * [0]
 week = 1
-a = [1, 3, 4]
 Weeks_Successful = []
 Runs = []
 for i in range():
