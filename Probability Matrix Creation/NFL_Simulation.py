@@ -67,6 +67,7 @@ def nfl_simulation(current_week, elo_rankings, home_away, schedule, selected_tea
     diff = 17 - len(p)
     for n in range(diff):
         p.append([0]*32)
+    top_k = 1
     num_teams = 32
     start_node = "S"
     terminal_node = "T"
@@ -80,7 +81,7 @@ def nfl_simulation(current_week, elo_rankings, home_away, schedule, selected_tea
     node_set = set(range(1, 1 + num_teams)).difference(selected_nodes)
     g = GraphConstructor.build_graph(defaultdict(lambda: defaultdict(float)), p,
                                      tuple([start_node]), tuple([terminal_node]), terminal_weight, start_week, node_set,
-                                     num_weeks)
+                                     num_weeks, top_k)
     dist, prev = dijkstra(g, tuple([start_node]))
     optimal_path = prev[tuple([terminal_node])]
     optimal_team = optimal_path[1]
