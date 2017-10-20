@@ -50,4 +50,4 @@ for i in range(500):
     print(i)
 Runs.append(Weeks_Successful)
 Runs.append(Probability)
-write_csv('NFL Simulations 7.csv', Runs)
+write_csv('NFL Simulations 9.csv', Runs)
