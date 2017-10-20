@@ -44,7 +44,7 @@ week = 1
 Weeks_Successful = []
 Probability = []
 Runs = []
-ntrials = 10000
+ntrials = 50000
 for i in range(ntrials):
     Results = nfl_simulation(week, Elo_Rankings, Home_Away, Schedule, [], [], Win_Total, 0, 1)
     weeks_survived = Results[0]
@@ -54,7 +54,7 @@ for i in range(ntrials):
     print(i)
 Runs.append(Weeks_Successful)
 Runs.append(Probability)
-write_csv('NFL Simulations (Greedy 1).csv', Runs)
+write_csv('NFL Simulations (Greedy 2).csv', Runs)
 
 simulation_t1 = time()
 
