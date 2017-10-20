@@ -29,9 +29,9 @@ def write_csv(csv_filename, data_matrix):
             csv_writer.writerow(list(row))
 
 
-marco_filename_elo = r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Data\2016 Elo Rankings All Weeks.csv'
-marco_filename_home_away = r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Data\2016 Home Away.csv'
-marco_filename_schedule = r'C:\Users\marco_000\Documents\Survivor Football Research\2016 Data\2016 Schedule.csv'
+marco_filename_elo = r'../Probability Matrix Inputs/2016/2016 Elo Rankings All Weeks.csv'
+marco_filename_home_away = r'../Probability Matrix Inputs/2016/2016 Home Away.csv'
+marco_filename_schedule = r'../Probability Matrix Inputs/2016/2016 Schedule.csv'
 
 Elo_Rankings = read_csv(marco_filename_elo)
 Home_Away = read_csv(marco_filename_home_away)
@@ -39,16 +39,15 @@ Schedule = read_csv(marco_filename_schedule)
 Win_Total = 32 * [0]
 week = 1
 Weeks_Successful = []
+Probability = []
 Runs = []
-for i in range():
+for i in range(100):
     Results = nfl_simulation(week, Elo_Rankings, Home_Away, Schedule, [], [], Win_Total, 0, 1)
-    check = Results[2]
-    weeks_correct = len(check) - 1
-    if len(check) == 17:
-        if sum(check[16]) > 0:
-            weeks_correct = 17
-    Weeks_Successful.append(weeks_correct)
+    weeks_survived = Results[0]
+    probability_at_current_week = Results[1]
+    Weeks_Successful.append(weeks_survived)
+    Probability.append(probability_at_current_week)
     print(i)
-
 Runs.append(Weeks_Successful)
-write_csv('NFL Simulations4.csv', Runs)
+Runs.append(Probability)
+write_csv('NFL Simulations 1.csv', Runs)
