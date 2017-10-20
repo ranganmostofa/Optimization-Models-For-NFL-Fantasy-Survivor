@@ -41,7 +41,7 @@ week = 1
 Weeks_Successful = []
 Probability = []
 Runs = []
-for i in range(333):
+for i in range(500):
     Results = nfl_simulation(week, Elo_Rankings, Home_Away, Schedule, [], [], Win_Total, 0, 1)
     weeks_survived = Results[0]
     probability_at_current_week = Results[1]
@@ -50,4 +50,4 @@ for i in range(333):
     print(i)
 Runs.append(Weeks_Successful)
 Runs.append(Probability)
-write_csv('NFL Simulations 3.csv', Runs)
+write_csv('NFL Simulations 7.csv', Runs)
