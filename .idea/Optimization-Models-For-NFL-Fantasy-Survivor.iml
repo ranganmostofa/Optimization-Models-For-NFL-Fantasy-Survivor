@@ -5,7 +5,7 @@
       <sourceFolder url="file://$MODULE_DIR$/Shortest Path Models" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Probability Matrix Creation" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.6.1 (C:\Program Files\Python36\python.exe)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.7.0a2 (C:\Users\marco_000\AppData\Local\Programs\Python\Python37\python.exe)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="TestRunnerService">
