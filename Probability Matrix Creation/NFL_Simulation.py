@@ -67,7 +67,7 @@ def nfl_simulation(current_week, elo_rankings, home_away, schedule, selected_tea
     diff = 17 - len(p)
     for n in range(diff):
         p.append([0]*32)
-    top_k = 1
+    top_k = 32
     num_teams = 32
     start_node = "S"
     terminal_node = "T"
@@ -188,5 +188,3 @@ def nfl_simulation(current_week, elo_rankings, home_away, schedule, selected_tea
         return win_picks, prob, season_elo, win_total
 
 # Season_Elo = nfl_simulation(week, Elo_Rankings, Home_Away, Schedule, [], [], Win_Total, 0, 1)
-
-
