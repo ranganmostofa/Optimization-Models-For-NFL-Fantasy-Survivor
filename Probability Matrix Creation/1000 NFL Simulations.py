@@ -1,5 +1,4 @@
 import csv
-from time import time
 from NFL_Simulation import nfl_simulation
 
 
@@ -30,8 +29,6 @@ def write_csv(csv_filename, data_matrix):
             csv_writer.writerow(list(row))
 
 
-simulation_t0 = time()
-
 marco_filename_elo = r'../Probability Matrix Inputs/2016/2016 Elo Rankings All Weeks.csv'
 marco_filename_home_away = r'../Probability Matrix Inputs/2016/2016 Home Away.csv'
 marco_filename_schedule = r'../Probability Matrix Inputs/2016/2016 Schedule.csv'
@@ -44,8 +41,7 @@ week = 1
 Weeks_Successful = []
 Probability = []
 Runs = []
-ntrials = 50000
-for i in range(ntrials):
+for i in range(1000):
     Results = nfl_simulation(week, Elo_Rankings, Home_Away, Schedule, [], [], Win_Total, 0, 1)
     weeks_survived = Results[0]
     probability_at_current_week = Results[1]
@@ -54,9 +50,4 @@ for i in range(ntrials):
     print(i)
 Runs.append(Weeks_Successful)
 Runs.append(Probability)
-write_csv('NFL Simulations (Greedy 2).csv', Runs)
-
-simulation_t1 = time()
-
-print("Time Taken for " + str(ntrials) + " trials: " + str(simulation_t1 - simulation_t0) + " s\n")
-
+write_csv('NFL Simulations 12.csv', Runs)
